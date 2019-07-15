@@ -11,6 +11,15 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#password_length' do
+    it 'should have at least eight characters' do
+      @user = User.new(
+        password: 'password'
+      )
+      expect(@user.password.length).to be >= 8
+    end
+  end
+
   describe '#password_confirmation' do
     it 'should exist for new users' do
       @user = User.new(
@@ -50,18 +59,16 @@ RSpec.describe User, type: :model do
 
   describe '#email_already_exists' do
     it 'shouldn\'t admit a new user into db if email address already exists' do
-      @user1 = User.create(
+      @existing_user = User.create(
         name: 'Perry',
         email: 'perry@perry.com',
         password_digest: 'password'
       )
       @user = User.new(
-        email: 'perry@perry.com'
+        email: 'perry1@perry.com'
       )
 
-      @existing_user = User.where("email ILIKE #{@user1.email}")
-
-      expect(@user.email).to be_empty
+      expect(@user.email).to_not eq(@existing_user.email)
     end
   end
 
