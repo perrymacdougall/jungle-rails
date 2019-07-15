@@ -24,6 +24,32 @@
           <dd><%= @product.price %></dd>
         </dl>
       </div>
+<<<<<<< Updated upstream
+=======
+
+    </div>
+
+    <div class="row">
+      <h3>Reviews</h3>
+        <% if current_user %>
+          <%= form_for [@product, @reviews.new] do |f| %>
+            Leave a review!
+            Description: <%= f.text_area :description %>
+            Rating: <%= f.select(:rating, options_for_select([[1, 1], [2, 2], [3, 3], [4, 4], [5, 5]])) %>
+            <%= f.submit "Submit" %>
+          <% end %>
+        <% end %>
+
+        <% @reviews.order('created_at DESC').each do |review| %>
+            <div class="review">
+              <p><%= review.description %></p>
+              <p><%= review.rating %></p>
+            </div>
+          <% if current_user && current_user.id == review.user_id %>
+            <%= link_to "delete", [@product, review], :method => :delete %>
+          <% end %>
+      <% end %>
+>>>>>>> Stashed changes
     </div>
 
   </article>
