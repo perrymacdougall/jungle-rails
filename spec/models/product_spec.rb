@@ -48,9 +48,9 @@ RSpec.describe Product, type: :model do
         category_id: @category.id
       )
 
-      @product.valid? <-- Rails method
-      # puts @product.errors.full_messages
-      expect(@product).to be_valid <-- RSpec method
+      @product.valid? # <-- Rails method
+      puts @product.errors.full_messages
+      # expect(@product).to be_valid <-- RSpec method
     end
   end
 
